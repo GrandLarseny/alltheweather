@@ -44,18 +44,6 @@ This endpoint will return detailed, 5-day forecast information, along with curre
 
 If a given city ID does not exist, the server will return an `HTTP 404` error.
 
-+ Request (application)
-
-    + Attributes
-    
-        + cityID: 8744 (number) - The identifier for the city
-        
-    + Body
-    
-            {
-                "cityID": 8744
-            }
-
 + Response 200 (application/json)
 
     + Attributes
@@ -70,7 +58,7 @@ If a given city ID does not exist, the server will return an `HTTP 404` error.
                 "message": "Unable to find city for ID 999"
             }
             
-## Radar Imagry [/radar/{cityID}]
+## Radar Imagry [/radar]
 
 This endpoint will return all radar imagry URLs for a given city ID
 
@@ -104,6 +92,28 @@ If a given city ID does not exist, the server will return an `HTTP 404` error.
                 "message": "Unable to find city for ID 999"
             }
 
+## Page View Analytics [/analytics/page]
+
+This endpoint can be used for posting analytic pageview events. A pageview event can be defined as any time a screen becomes the primary interface for the application.
+
+### Post Pageview [POST]
+
++ Request (applicaiton/json)
+
+    + Attributes
+    
+        + name: Home (string, required) - The page name
+        + city: Dallas (string) - The city that the page is displaying information for. If the user is not viewing a city, this attribute can be omitted or left blank.
+        
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "Unable to post event for given reasons"
+            }
 
 
 # Data Structures
