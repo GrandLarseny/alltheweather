@@ -124,7 +124,14 @@ The details of the forecast for a given city
 ## Properties
 - highTemperature: 85 (number) - The high temperature for the day
 - lowTemperature: 65 (number) - The low temperature for the day
-- condition: 1 (number) - A range of forecast conditions
+- condition: 1 (number) 
+    A range of forecast conditions. This value is a zero-based index into an array of six possible conditions. Those conditions are as follows: 
+        - 0 = Sunny
+        - 1 = Partly Cloudy
+        - 2 = Cloudy
+        - 3 = Light Rain
+        - 4 = Heavy Rain/Thunderstorms
+        - 5 = Snow/Sleet
 
 # City (object)
 A city that will have weather
