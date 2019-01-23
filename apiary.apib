@@ -25,7 +25,8 @@ By default, this endpoint will return all cities that are supported by the API. 
 
     + Attributes
     
-        + startIndex: 0 (number)
+        + startIndex: 0 (number) - The starting index for the cities returned
+        + totalCitiesFound: 132 (number)
         + cities: City (array[City])
 
 ## City Detail [/cities/{cityID}]
@@ -35,6 +36,10 @@ This endpoint will return detailed, 5-day forecast information, along with curre
 ### List City Details [GET]
 
 If a given city ID does not exist, the server will return an `HTTP 404` error.
+
++ Parameters
+
+    + cityID: 10001 (number) - The city identifier. This can be found in the response from the `/cities` endpoint
 
 + Response 200 (application/json)
 
@@ -72,9 +77,7 @@ If a given city ID does not exist, the server will return an `HTTP 404` error.
             
 + Response 200 (application/json)
 
-    + Attributes
-    
-        + radarURLs (RadarImagry) - An array of five DayForecast objects for the given city
+    + Attributes (RadarImagry)
 
 + Response 404
 
@@ -84,7 +87,7 @@ If a given city ID does not exist, the server will return an `HTTP 404` error.
                 "message": "Unable to find city for ID 999"
             }
 
-## Page View Analytics [/analytics/page]
+## Page View Analytics [/analytics]
 
 This endpoint can be used for posting analytic pageview events. A pageview event can be defined as any time a screen becomes the primary interface for the application.
 
@@ -114,6 +117,7 @@ This endpoint can be used for posting analytic pageview events. A pageview event
 The details of the forecast for a given city
 
 ## Properties
+- daysAway: 2 (number) - How far in the future this forecast is for. This is a zero-based number that references how far out the forecast is for. For example, today's forcast is *0* days away. Tomorrow's is *1* day away, and so on.
 - highTemperature: 85 (number) - The high temperature for the day
 - lowTemperature: 65 (number) - The low temperature for the day
 - condition: 1 (number) 
@@ -137,4 +141,8 @@ A city that will have weather
 
 # RadarImagry (object)
 The URLs to fetch any radar imagry from.
-- radarURLs: default (array[string]) - The URLs to fetch radar imagry from. Can by any-sized array.
+
+## Properties
+- topoURL: https://radar.weather.gov/Overlays/Topo/Short/MOB_Topo_Short.jpg (string) - The URL to display the topographical image in the radar overlay
+- radarURL: https://radar.weather.gov/RadarImg/N0R/MOB_N0R_0.gif (string) - The URL to display the radar image in the radar overlay
+- citiesURL: https://radar.weather.gov/ridge/Overlays/Cities/Short/MOB_City_Short.gif (string) - The URL to display the cities image in the radar overlay
