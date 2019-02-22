@@ -55,7 +55,7 @@ If a given city ID does not exist, the server will return an `HTTP 404` error.
                 "message": "Unable to find city for ID 999"
             }
             
-## Radar Imagery [/radar]
+## Radar Imagery [/cities/{cityID}/radar]
 
 This endpoint will return all radar imagery URLs for a given city ID
 
@@ -65,19 +65,37 @@ If a given city ID does not exist, the server will return an `HTTP 404` error.
 
 + Request (application)
 
-    + Attributes
+    + Parameters
     
         + cityID: 8744 (number) - The identifier for the city
-        
-    + Body
-    
-            {
-                "cityID": 8744
-            }
-            
+
 + Response 200 (application/json)
 
     + Attributes (RadarImagery)
+
++ Response 404
+
+    + Body
+    
+            {
+                "message": "Unable to find city for ID 999"
+            }
+
+## Background Images [/cities/{cityID}/image]
+
+This endpoint will return the image to be used when displaying city details
+
+### Fetch Background [GET]
+
+Fetch the background image to be used when displaying the city details. If found, the image data will be in JPEG format.
+
++ Request (application)
+
+    + Parameters
+    
+        + cityID: 8744 (number) - The identifier for the city
+
++ Response 200 (image/jpeg)
 
 + Response 404
 
