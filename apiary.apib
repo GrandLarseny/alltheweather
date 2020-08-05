@@ -7,35 +7,60 @@ All The Weather is a simple API for requesting weather data. Using this API you 
 
 This API also exposes endpoints for tracking analytic information.
 
-## Cities Collection [/cities{?cityName,pageCount,pageNumber}]
+## Cities Collection [/cities{?search,pageCount,pageNumber}]
 
 ### List Cities [GET]
 
-This endpoint will return all supported cities. Each city will include a basic 5-day forecast.
+This endpoint will return all supported cities.
 
 By default, this endpoint will return all cities that are supported by the API. Applications may restrict the number of cities returned by specifying the `pageCount` in the request body. Applications may also support paging by specifying the `pageNumber` in the request body.
 
 + Parameters
 
-    + cityName: `Dallas` (string, Required) - A search term that will be used to filter the list of cities.
+    + search: `Dallas` (string, optional) - A search term that will be used to filter the list of cities.
     + pageCount: 10 (number, optional) - The number of cities to be returned by this endpoint. If omitted, all available cities will be returned
-    + pageNumber: 0 (number, Required) - The starting city number for the results. This attribute can be used for pagination. If this number is larger than the total number of cities, no results will be returned.
+    + pageNumber: 0 (number, optional) - The starting city number for the results. This attribute can be used for pagination. If this number is larger than the total number of cities, no results will be returned.
 
 + Response 200 (application/json)
 
-    + Attributes
+    + Body
 
-        + startIndex: 0 (number) - The starting index for the cities returned
-        + totalCitiesFound: 132 (number)
-        + cities: City (array[City])
+            {
+                "totalCitiesFound": 1,
+                "startIndex": 0,
+                "cities": [
+                    {
+                        "modification date": "6/28/17",
+                        "admin2 code": 113,
+                        "country code": "US",
+                        "population": 1300092,
+                        "asciiname": "Dallas",
+                        "geonameid": 4684888,
+                        "dem": 139,
+                        "feature class": "P",
+                        "admin4 code": "",
+                        "cc2": "",
+                        "imageURLs": null,
+                        "admin3 code": 0,
+                        "timezone": "America/Chicago",
+                        "feature code": "PPLA2",
+                        "elevation": 128,
+                        "name": "Dallas",
+                        "alternatenames": "DFW,Dalas,Dalasa,Dalasas,Dallas,Dallas shaary,Dallasium,Gorad Dalas,Ntalas,da la si,daelleoseu,dailasa,dalas,dalasa,dalasi,dallas,dallasa,dallaseu,darasu,delasa,talas,Ντάλας,Горад Далас,Далас,Даллас,Даллас шаары,Դալաս,דאלאס,دالاس,داللاس,داڵاس,ڈیلاس,डॅलस,डैलस,ডালাস,ਡਾਲਸ,ડલ્લાસ,டாலஸ்,డల్లాస్,ഡാളസ്,แดลลัส,ဒါးလတ်စ်မြို့,დალასი,ዳላስ,ダラス,達拉斯,달라스,댈러스",
+                        "latitude": 32.78306,
+                        "longitude": -96.80667,
+                        "admin1 code": "TX"
+                    }
+                ]
+            }
 
 ## City Detail [/cities/{cityID}]
 
-This endpoint will return detailed, 5-day forecast information, along with current humidity and UV index.
+This endpoint will return detailed, 5-day forecast information, along with current humidity.
 
 ### List City Details [GET]
 
-If a given city ID does not exist, the server will return an `HTTP 404` error.
+If a given city ID does not exist, the server will return an `HTTP 502` error.
 
 + Parameters
 
@@ -43,16 +68,101 @@ If a given city ID does not exist, the server will return an `HTTP 404` error.
 
 + Response 200 (application/json)
 
-    + Attributes
+    + Body
 
-        + forecast: DayForecast (array[DayForecast]) - An array of five DayForecast objects for the given city
+            {
+                "city": {
+                    "name": "Dothan",
+                    "country code": "US",
+                    "alternatenames": "Cawthons Cowpen,DHN,Dotan,Dothan,Dothen,Poplar Head,dosan,doseon,dothana,dothyana,duo sen,dwthan,dwthn  alabama,Дотан,دوثان,دوثن، آلاباما,دۆتەن، ئەلاباما,ڈوتھن، الاباما,डोथान,डोथ्यान,ドーサン,多森,도선",
+                    "admin4 code": "",
+                    "elevation": 98,
+                    "imageURLs": {
+                        "androidImageURLs": {
+                            "xhdpiImageURL": "https://all-the-weather-resources.s3.amazonaws.com/Images/Android_City_Images/xhdpi/img_dallas.png",
+                            "hdpiImageURL": "https://all-the-weather-resources.s3.amazonaws.com/Images/Android_City_Images/hdpi/img_dallas.png",
+                            "mdpiImageURL": "https://all-the-weather-resources.s3.amazonaws.com/Images/Android_City_Images/mdpi/img_dallas.png"
+                        },
+                        "iOSImageURLs": {
+                            "imageURL": "https://all-the-weather-resources.s3.amazonaws.com/Images/iOS_City_Images/img_dallas@2x.png"
+                        }
+                    },
+                    "geonameid": 4059102,
+                    "modification date": "3/9/17",
+                    "feature code": "PPLA2",
+                    "dem": 102,
+                    "feature class": "P",
+                    "admin2 code": 69,
+                    "admin3 code": null,
+                    "longitude": -85.39049,
+                    "asciiname": "Dothan",
+                    "latitude": 31.22323,
+                    "timezone": "America/Chicago",
+                    "population": 68567,
+                    "cc2": "",
+                    "admin1 code": "AL"
+                },
+                "weather": {
+                    "id": 0,
+                    "days": [
+                        {
+                            "dayOfTheWeek": 3,
+                            "low": 60,
+                            "high": 75,
+                            "weatherType": "sunny",
+                            "hourlyWeather": [
+                                {
+                                    "windSpeed": 1.2,
+                                    "temperature": 75,
+                                    "weatherType": "sunny",
+                                    "humidity": 0.1,
+                                    "hour": 0,
+                                    "rainChance": 0.25
+                                },
+                                {
+                                    "rainChance": 0.25,
+                                    "temperature": 75,
+                                    "weatherType": "sunny",
+                                    "humidity": 0.1,
+                                    "hour": 1,
+                                    "windSpeed": 1.2
+                                }
+                            ]
+                        },
+                        {
+                            "low": 30,
+                            "high": 75,
+                            "dayOfTheWeek": 4,
+                            "weatherType": "snowSleet",
+                            "hourlyWeather": [
+                                {
+                                    "rainChance": 0.25,
+                                    "hour": 0,
+                                    "humidity": 0.1,
+                                    "weatherType": "snowSleet",
+                                    "windSpeed": 1.2,
+                                    "temperature": 30
+                                },
+                                {
+                                    "rainChance": 0.25,
+                                    "hour": 1,
+                                    "humidity": 0.1,
+                                    "weatherType": "heavyRain",
+                                    "windSpeed": 1.2,
+                                    "temperature": 31
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
 
-+ Response 404
++ Response 502
 
     + Body
 
             {
-                "message": "Unable to find city for ID 999"
+                "message": "Internal server error"
             }
 
 ## Radar Imagery [/cities/{cityID}/radar]
@@ -61,49 +171,40 @@ This endpoint will return all radar imagery URLs for a given city ID
 
 ### List Radar URLs [GET]
 
-If a given city ID does not exist, the server will return an `HTTP 404` error.
+If a given city ID does not exist, the server will return an `HTTP 502` error.
 
 + Request (application)
 
-    + Parameters
+    + Body
 
-        + cityID: 8744 (number) - The identifier for the city
+            {
+                "name": "Screen",
+                "city": "Dallas"
+            }
 
 + Response 200 (application/json)
 
-    + Attributes (RadarImagery)
+    + Body
 
-+ Response 404
+            {
+                "androidImageURLs": {
+                    "xhdpiImageURL": "https://radar.weather.gov/RadarImg/N0R/MOB_N0R_0.gif",
+                    "hdpiImageURL": "https://radar.weather.gov/RadarImg/N0R/MOB_N0R_0.gif",
+                    "mdpiImageURL": "https://radar.weather.gov/RadarImg/N0R/MOB_N0R_0.gif"
+                },
+                "iOSImageURLs": {
+                    "imageURL": "https://radar.weather.gov/RadarImg/N0R/MOB_N0R_0.gif"
+                }
+            }
+
++ Response 502
 
     + Body
 
             {
-                "message": "Unable to find city for ID 999"
+                "message": "Internal server error"
             }
 
-## Background Images [/cities/{cityID}/image]
-
-This endpoint will return the image to be used when displaying city details
-
-### Fetch Background [GET]
-
-Fetch the background image to be used when displaying the city details. If found, the image data will be in JPEG format.
-
-+ Request (application)
-
-    + Parameters
-
-        + cityID: 8744 (number) - The identifier for the city
-
-+ Response 200 (image/jpeg)
-
-+ Response 404
-
-    + Body
-
-            {
-                "message": "Unable to find city for ID 999"
-            }
 
 ## Page View Analytics [/analytics]
 
@@ -111,7 +212,7 @@ This endpoint can be used for posting analytic pageview events. A pageview event
 
 ### Post Pageview [POST]
 
-+ Request (applicaiton/json)
++ Request (application/json)
 
     + Attributes
 
@@ -120,6 +221,12 @@ This endpoint can be used for posting analytic pageview events. A pageview event
 
 + Response 200 (application/json)
 
+    + Body
+
+            {
+                "message": "Analytic received. Name: Screen City: Dallas"
+            }
+
 + Response 400 (application/json)
 
     + Body
@@ -127,40 +234,3 @@ This endpoint can be used for posting analytic pageview events. A pageview event
             {
                 "message": "Unable to post event for given reasons"
             }
-
-
-# Data Structures
-
-# DayForecast (object)
-The details of the forecast for a given city
-
-## Properties
-- daysAway: 2 (number) - How far in the future this forecast is for. This is a zero-based number that references how far out the forecast is for. For example, today's forcast is *0* days away. Tomorrow's is *1* day away, and so on.
-- highTemperature: 85 (number) - The high temperature for the day
-- lowTemperature: 65 (number) - The low temperature for the day
-- condition: 1 (number)
-    A range of forecast conditions. This value is a zero-based index into an array of six possible conditions. Those conditions are as follows:
-        - 0 = Sunny
-        - 1 = Partly Cloudy
-        - 2 = Cloudy
-        - 3 = Light Rain
-        - 4 = Heavy Rain/Thunderstorms
-        - 5 = Snow/Sleet
-
-# City (object)
-A city that will have weather
-
-## Properties
-- cityID: 8744 (number) - The identifier for the city
-- name: Dallas (string) - The city name
-- displayName: Dallas, TX (string) - The name for display purposes, including state
-- todaysForecast: default (DayForecast) - The forecast for today
-- backgroundURL: https://wallpapercave.com/wp/2MdtgXO.jpg (string) - A URL for the image to display as the forecast background
-
-# RadarImagery (object)
-The URLs to fetch any radar imagery from.
-
-## Properties
-+ topoURL: https://radar.weather.gov/Overlays/Topo/Short/MOB_Topo_Short.jpg (string) - The URL to display the topographical image in the radar overlay
-+ radarURL: https://radar.weather.gov/RadarImg/N0R/MOB_N0R_0.gif (string) - The URL to display the radar image in the radar overlay
-+ citiesURL: https://radar.weather.gov/ridge/Overlays/Cities/Short/MOB_City_Short.gif (string) - The URL to display the cities image in the radar overlay
